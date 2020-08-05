@@ -1,0 +1,28 @@
+.login-card-container {
+  text-align: center;
+}
+
+.login-card {
+  display: inline-block;
+  width: 350px;
+  margin: 16px;
+  text-align: start;
+  padding: 20px 25px;
+}
+
+.login-button {
+  width: 72px;
+}
+
+.displayBlock {
+  display: block;
+}
+
+.displayNone {
+  display: none;
+}
+
+.red {
+  color: red
+}
+
