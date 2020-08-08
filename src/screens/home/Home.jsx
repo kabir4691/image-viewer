@@ -11,7 +11,8 @@ class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      postsData: []
+      postsData: [],
+      searchValue: ""
     }
   }
 
@@ -29,6 +30,11 @@ class Home extends Component {
     .catch(err => console.log({err}));
   }
 
+  handleSearchInputChange = (event) => {
+    const value = event.target.value;
+    this.setState({searchValue: value});
+  }
+
   render() {
     const { props } = this;
     const { postsData } = this.state;
@@ -37,10 +43,13 @@ class Home extends Component {
     }
     return (
       <div>
-        <Header />
+        <Header handleInputChange={this.handleSearchInputChange} />
         <div className="posts-grid-container">
           <GridList className="posts-grid" cols={2} spacing={16} cellHeight='auto'>
-            {postsData && postsData.map(post => (
+            {postsData && postsData.filter(post => {
+              return (post.caption || '').toLowerCase().includes(this.state.searchValue.toLowerCase())
+            })
+            .map(post => (
               <GridListTile key={post.id}>
                 <Post postData={post}/>
               </GridListTile>
