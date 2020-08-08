@@ -73,7 +73,7 @@ class Header extends Component {
                 <div className={classes.searchIcon}>
                   <Search />
                 </div>
-                <Input className={classes.searchBar} disableUnderline placeholder="Search..." />
+                <Input className={classes.searchBar} disableUnderline placeholder="Search..." onChange={this.props.handleInputChange}/>
               </div>
               <IconButton size='small' onClick={this.handleAvatarClick}>
                 <Avatar alt="Profile Picture" variant='circle' src='profile_pic_dummy.jpg' className={classes.avatar}/>
