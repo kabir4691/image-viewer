@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter, Redirect } from 'react-router-dom';
 import './Home.css'
+import Post from '../post/Post'
 import Header from '../../common/header/Header'
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile'
@@ -37,11 +38,11 @@ class Home extends Component {
     return (
       <div>
         <Header />
-        <div className="post-grid-container">
-          <GridList cols={2}>
+        <div className="posts-grid-container">
+          <GridList className="posts-grid" cols={2} spacing={16} cellHeight='auto'>
             {postsData && postsData.map(post => (
-              <GridListTile className='post-grid-item' key={post.id}>
-                
+              <GridListTile key={post.id}>
+                <Post postData={post}/>
               </GridListTile>
             ))}
           </GridList>
