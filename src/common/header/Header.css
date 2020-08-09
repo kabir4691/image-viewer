@@ -12,3 +12,22 @@
   line-height: 36px;
   vertical-align: middle;
 }
+
+.menu-container {
+  float: right;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center; 
+}
+
+.popover-menu {
+  background-color: #dfdfdf;
+  padding: 6px;
+}
+
+.popover-menu-divider {
+  margin: 0 15px;
+  height: 1px;
+  background-color: #9a9a9a;
+}

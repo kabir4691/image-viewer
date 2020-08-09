@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom';
 import './Login.css'
 import Header from '../../common/header/Header'
 import Card from '@material-ui/core/Card'
@@ -10,7 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Button from '@material-ui/core/Button'
 
-export default class extends Component {
+class Login extends Component {
 
   constructor(props) {
     super(props)
@@ -46,7 +47,7 @@ export default class extends Component {
     }
 
     localStorage.setItem('access-token', instagramAccessToken);
-    this.setState({ userLoggedIn : true });
+    this.props.history.push('/home', { userLoggedIn: true })
   }
 
   render() {
@@ -88,3 +89,5 @@ export default class extends Component {
     )
   }
 }
+
+export default withRouter(Login);

@@ -1,0 +1,10 @@
+.posts-grid-container {
+  margin: 20px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
+
+.posts-grid {
+  width: 960px;
+}

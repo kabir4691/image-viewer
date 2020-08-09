@@ -1,0 +1,29 @@
+.media-divider {
+  display: block; 
+  height: 0px;
+  border: 0; 
+  border-top: 2px solid #dfdfdf;
+  padding: 0;
+}
+
+.caption {
+  font-weight: 500;
+}
+
+.hashtags {
+  margin: 0;
+  padding: 0;
+  color: #70b6ff;
+}
+
+.comments-list {
+  padding: 0;
+  list-style: none;
+}
+
+.add-comment-container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: baseline;
+  justify-content: start;
+}
