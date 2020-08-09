@@ -18,10 +18,6 @@ const classes = theme => ({
   card: {
     margin: '5px'
   },
-  mediaImage: {
-    width: '100%',
-    objectFit: 'cover'
-  }, 
   cardActions: {
     paddingLeft: 0
   },
@@ -127,9 +123,81 @@ class Post extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, sourcePage } = this.props;
     const { postData } = this.state;
     if (!postData) return "Loading";
+    if (sourcePage && sourcePage === 'profile') {
+      return (
+        <div className='profile-modal-container'>
+          <img
+            src={postData.mediaImageUrl}
+            alt="Post Image"
+            className='profile-modal-media-image'
+          />
+          <div className='profile-modal-details-container'>
+            <CardHeader
+              avatar={<Avatar 
+                        className={classes.avatar}
+                        alt="Profile Picture"
+                        variant='circle'
+                        src={postData.profileImageUrl}
+                      />} 
+              title={postData.username}
+              disableTypography={false}
+              titleTypographyProps={{variant: 'title'}}
+            />
+            <p className='profile-modal-username-divider'/>
+            <p className='caption'>{postData.caption}</p>
+            <p className='hashtags'>{postData.hashtags}</p>
+            <ul className='comments-list'>
+              {postData.comments && postData.comments.map(comment => (
+                <li>
+                  <p>
+                    <strong>{postData.username}</strong>: {comment}
+                  </p>
+                </li>
+              ))}
+            </ul>
+            <CardActions className={classes.cardActions}>
+              { postData.isLiked 
+                ? <Favorite 
+                    fontSize="large"
+                    className={classes.favoriteLiked}
+                    onClick={this.likeToggleHandler}
+                  />
+                : <FavoriteBorder
+                    fontSize="large"
+                    className={classes.favoriteUnliked}
+                    onClick={this.likeToggleHandler}
+                  />
+              }
+              <span>{this.formatLikeCount(postData.likeCount)}</span>
+            </CardActions>
+            <div className='add-comment-container'>
+              <FormControl 
+                fullWidth 
+                className={classes.addCommentInput}
+              >
+                <InputLabel htmlFor='add-comment-input'>Add a comment</InputLabel>
+                <Input
+                  type='text'
+                  id='add-comment-input'
+                  onChange={this.addCommentInputChangeHandler}
+                  value={postData.addCommentInput} 
+                />
+              </FormControl>
+              <Button 
+                variant='contained'
+                color='primary'
+                onClick={this.addCommentButtonHandler}
+              >
+                Add
+              </Button>
+            </div>
+          </div>
+        </div>
+      )
+    }
     return (
       <Card className={classes.card}>
         <CardHeader 
@@ -149,7 +217,7 @@ class Post extends Component {
           <img
             src={postData.mediaImageUrl}
             alt="Post Image"
-            className={classes.mediaImage}
+            className='media-image'
           />
           <hr className='media-divider'/>
           <p className='caption'>{postData.caption}</p>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withRouter, Redirect } from 'react-router-dom';
 import './Profile.css'
 import Header from '../../common/header/Header'
+import Post from '../post/Post'
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Fab from '@material-ui/core/Fab';
@@ -11,6 +12,8 @@ import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input'
 import Button from '@material-ui/core/Button'
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile'
 
 const classes = theme => ({
   avatar: {
@@ -47,8 +50,11 @@ class Profile extends Component {
         followingCount: 20,
         fullName: 'Kabir Nazir'
       },
+      postsData: [],
       isEditNameModalOpen: false,
-      editNameInput: ''
+      editNameInput: '',
+      isPostModalOpen: false,
+      modalPost: null
     }
   }
 
@@ -73,9 +79,37 @@ class Profile extends Component {
     });
     this.closeEditNameModalHandler();
   }
- 
+
+  openPostModalHandler = (post) => {
+    this.setState({ 
+      isPostModalOpen: true,
+      modalPost: post
+   })
+  }
+
+  closePostModalHandler = () => {
+    this.setState({ isPostModalOpen: false });
+  }
+
+  componentDidMount() {
+    const url = `https://graph.instagram.com/me/media?fields=id,caption, media_url&access_token=${localStorage.getItem('access-token')}`;
+    fetch(url, { 
+      headers: {
+        "Accept": "application/json;charset=UTF-8"
+      }
+    })
+    .then(response => response.json())
+    .then(json => {
+      this.setState({
+        postsData: json.data,
+        postCount: json.data.length
+      });
+    })
+    .catch(err => console.log({err}));
+  }
+
   render() {
-    const { profileData } = this.state;
+    const { profileData, postsData } = this.state;
     const { classes } = this.props; 
     const isUserLoggedIn = localStorage.getItem('access-token') !== null;
     if (!isUserLoggedIn) {
@@ -127,6 +161,29 @@ class Profile extends Component {
               </Fab>
             </div>
           </div>
+          <GridList className="posts-grid" cols={3} spacing={4} cellHeight='auto'>
+            { 
+              postsData && postsData.map(post => (
+                <GridListTile key={post.id}>
+                  <div className='post-image-container' onClick={() => this.openPostModalHandler(post)}>
+                    <img
+                      className='post-image'
+                      src={post.media_url}
+                      alt='Post Image'
+                    />
+                  </div>
+                  <Modal 
+                    style={modalStyle}
+                    ariaHideApp={false}
+                    isOpen={this.state.isPostModalOpen}
+                    contentLabel='postModal'
+                    onRequestClose={this.closePostModalHandler}>
+                      <Post postData={this.state.modalPost} sourcePage='profile'/>
+                  </Modal>
+                </GridListTile>
+              ))
+            }
+          </GridList>
         </div>
       </div> 
     )

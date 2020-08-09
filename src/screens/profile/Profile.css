@@ -40,3 +40,17 @@
   font-size: 28px;
   font-weight: 400;
 }
+
+.post-image-container {
+  position: relative;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
+
+.post-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
