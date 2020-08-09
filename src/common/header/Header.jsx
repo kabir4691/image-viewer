@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import './Header.css'
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
@@ -53,6 +54,7 @@ class Header extends Component {
 
   navigateToMyAccount = () => {
     this.handlePopoverClose();
+    this.props.history.push('/profile')
   }
 
   logoutUser = () => {
@@ -63,18 +65,24 @@ class Header extends Component {
 
   render() {
     const { classes, location } = this.props;
+    const isUserLoggedIn = localStorage.getItem('access-token') !== null;
     return (
       <div className='app-header'>
-        <span className='app-logo'>Image Viewer</span>
+        <Link to="/home">
+          <span className='app-logo'>Image Viewer</span>
+        </Link>
         { 
-          location.pathname === "/home" &&
+          isUserLoggedIn &&
             <div className='menu-container'>
-              <div className={classes.searchContainer}>
-                <div className={classes.searchIcon}>
-                  <Search />
-                </div>
-                <Input className={classes.searchBar} disableUnderline placeholder="Search..." onChange={this.props.handleInputChange}/>
-              </div>
+              { 
+                location.pathname === "/home" && 
+                  <div className={classes.searchContainer}>
+                    <div className={classes.searchIcon}>
+                      <Search />
+                    </div>
+                    <Input className={classes.searchBar} disableUnderline placeholder="Search..." onChange={this.props.handleInputChange}/>
+                  </div>
+              }
               <IconButton size='small' onClick={this.handleAvatarClick}>
                 <Avatar alt="Profile Picture" variant='circle' src='profile_pic_dummy.jpg' className={classes.avatar}/>
               </IconButton>
@@ -93,8 +101,13 @@ class Header extends Component {
                   horizontal: 'left',
                 }}>
                   <div className="popover-menu">
-                    <MenuItem onClick={this.navigateToMyAccount}>My Account</MenuItem>
-                    <hr className="popover-menu-divider"/>
+                    { 
+                      location.pathname === "/home" && 
+                        <Fragment>
+                          <MenuItem onClick={this.navigateToMyAccount}>My Account</MenuItem>
+                          <hr className="popover-menu-divider"/>
+                        </Fragment>
+                    }
                     <MenuItem onClick={this.logoutUser}>Logout</MenuItem>
                   </div>
               </Popover>

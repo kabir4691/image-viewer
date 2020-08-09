@@ -36,9 +36,9 @@ class Home extends Component {
   }
 
   render() {
-    const { props } = this;
     const { postsData } = this.state;
-    if (!(props && props.location && props.location.state && props.location.state.userLoggedIn)) {
+    const isUserLoggedIn = localStorage.getItem('access-token') !== null;
+    if (!isUserLoggedIn) {
       return <Redirect to="/" />
     }
     return (
