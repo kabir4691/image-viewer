@@ -29,7 +29,7 @@ class Login extends Component {
   }
 
   loginSubmitHandler = () => {
-    const instagramAccessToken = "IGQVJVbHNFQkFTSV9JcHFMbWxfOWV5dlg1ZA2ZAWdkpGZAjBsNFVSUU4zX004Ty1WRG5sWFJZAcm1GeExQdWdZASzAzV2p5bDZA1cXQzTG9jWTVqYm43NHpXQXY4cFpaRkZAqNmY2aDV2ZATBzN29IQWIyeHN2d3lVSU4wZA3Nvallz";
+    const instagramAccessToken = "IGQVJVVWpWc0szWWhwY0J5dm1mMEluNjhqbWQtZAk9aYWpSdWN5S01Cb0pSUXVZAYklfeHZA0MWZANeU8xMnF4Um1mdWVlM3FKSzE2RTUzSURPWHJfeHlKYW9RU2ZAseFozWlRBM1RXOHNqOWVCQUhFN3pPbnZAMSkNFSVpJY0pR";
     const username = "kabir";
     const password = "upgrad123";
 
