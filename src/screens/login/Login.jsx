@@ -47,7 +47,7 @@ class Login extends Component {
     }
 
     localStorage.setItem('access-token', instagramAccessToken);
-    this.props.history.push('/home', { userLoggedIn: true })
+    this.props.history.push('/home')
   }
 
   render() {

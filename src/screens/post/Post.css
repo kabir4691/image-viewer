@@ -1,3 +1,8 @@
+.media-image {
+  width: 100%;
+  object-fit: 'cover';
+}
+
 .media-divider {
   display: block; 
   height: 0px;
@@ -27,3 +32,36 @@
   align-items: baseline;
   justify-content: start;
 }
+
+.profile-modal-container {
+  height: 500px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+}
+
+.profile-modal-media-image {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.profile-modal-details-container {
+  margin-left: 10px;
+  width: 400px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.profile-modal-username-divider {
+  height: 2px;
+  width: 100%;
+  background-color: #dfdfdf;
+  margin: 0;
+  padding: 0;
+}
+
+
